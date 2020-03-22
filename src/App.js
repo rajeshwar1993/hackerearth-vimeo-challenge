@@ -53,8 +53,8 @@ export default function App() {
 
     if (temp.length > 0 && filterBy) {
       temp = temp.sort(function(a, b) {
-        if (a < b) return -1;
-        else if (a > b) return 1;
+        if (a[filterBy] < b[filterBy]) return -1;
+        else if (a[filterBy] > b[filterBy]) return 1;
         else return 0;
       });
       console.log("filtering", temp);
@@ -77,7 +77,7 @@ export default function App() {
 
   const filterChange = val => {
     console.log("filter", val);
-    //updateFilterBy(val);
+    updateFilterBy(val);
   };
 
   const pageChange = val => {
