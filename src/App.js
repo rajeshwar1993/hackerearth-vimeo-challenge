@@ -31,6 +31,31 @@ export default function App() {
     //     console.log(err);
     //   });
     console.log(transactions);
+
+    let temp = transactionsData;
+
+    if(searchText){
+      temp = temp.map(tr => {
+        if(tr["Account No"].toString().includes(searchText)){
+          return tr;
+        }
+      })
+    }
+
+    if(filterBy){
+      temp = temp.sort(function(a, b){
+        if(a<b) return -1;
+        else if(a>b) return 1;
+        else return 0;
+      })
+    }
+
+    if(currentPage){
+      temp = temp.splice(currentPage*10, 10);
+    }
+
+    updateTransactions(temp);
+
   }, [searchText, filterBy, currentPage]);
 
   return (

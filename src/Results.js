@@ -6,6 +6,7 @@ const Results = ({ trans }) => {
       <table className={"results-table"}>
         <thead>
           <tr>
+            <th>S. No</th>
             <th>Account No</th>
             <th>Date</th>
             <th>Transaction Details</th>
@@ -16,9 +17,14 @@ const Results = ({ trans }) => {
           </tr>
         </thead>
         <tbody>
-          {trans.map(tr => {
+          {trans.map((tr, i) => {
             return (
-              <tr key={`${tr["Account No"]} - ${tr["Date"]} - ${tr["Deposit AMT"]} - ${tr["Balance AMT"]}`}>
+              <tr
+                key={`${tr["Account No"]} - ${tr["Date"]} - ${
+                  tr["Deposit AMT"]
+                } - ${tr["Balance AMT"]}`}
+              >
+                <td>{i + 1}</td>
                 <td>{tr["Account No"]}</td>
                 <td>{tr["Date"]}</td>
                 <td>{tr["Transaction Details"]}</td>
