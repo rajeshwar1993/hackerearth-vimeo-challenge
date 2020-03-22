@@ -14,14 +14,20 @@ const SearchAndFilter = ({
             type="search"
             placeholder={"Search"}
             value={searchText}
+            className={"form-control"}
             onChange={e => {
               textChange(e.nativeEvent.target.value);
             }}
           />
         </div>
         <div className={"col-4"}>
-          <select>
-            <option value="date">Date</option>
+          <select className={"form-control"}>
+            <option default value="">
+              No Filter
+            </option>
+            <option value="Date">Date</option>
+            <option value="Value Date">Value Date</option>
+            <option value="Balance AMT">Balance AMT</option>
           </select>
         </div>
       </div>

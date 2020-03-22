@@ -38,7 +38,12 @@ export default function App() {
     if (searchText) {
       let acc = [];
       temp.forEach(tr => {
-        if (tr["Transaction Details"].toString().includes(searchText)) {
+        if (
+          tr["Transaction Details"]
+            .toString()
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+        ) {
           acc.push(tr);
         }
       });
@@ -71,7 +76,8 @@ export default function App() {
   };
 
   const filterChange = val => {
-    updateFilterBy(val);
+    console.log("filter", val);
+    //updateFilterBy(val);
   };
 
   const pageChange = val => {
