@@ -7,11 +7,13 @@ import Results from "./Results";
 import "./styles.css";
 
 export default function App() {
-  const [transactions, updateTransactions] = useState(transactionsData.splice(0,5));
+  const [transactions, updateTransactions] = useState(
+    transactionsData.splice(0, 15)
+  );
 
   const [searchText, updateSearchText] = useState("");
   const [filterBy, updateFilterBy] = useState("");
-  const [currentPage, updateCurrentPage] = useState(0);
+  const [currentPage, updateCurrentPage] = useState(1);
 
   useEffect(() => {
     // TRIED TO GET DATA FROM API
@@ -30,32 +32,36 @@ export default function App() {
     //     console.log("here2");
     //     console.log(err);
     //   });
-    console.log(transactions);
 
     let temp = transactionsData;
 
-    if(searchText){
+    console.log(temp);
+
+    if (searchText) {
+      console.log("searching");
       temp = temp.map(tr => {
-        if(tr["Account No"].toString().includes(searchText)){
+        if (tr["Account No"].toString().includes(searchText)) {
           return tr;
         }
-      })
+      });
     }
 
-    if(filterBy){
-      temp = temp.sort(function(a, b){
-        if(a<b) return -1;
-        else if(a>b) return 1;
+    if (filterBy) {
+      console.log("filtering");
+      temp = temp.sort(function(a, b) {
+        if (a < b) return -1;
+        else if (a > b) return 1;
         else return 0;
-      })
+      });
     }
 
-    if(currentPage){
-      temp = temp.splice(currentPage*10, 10);
+    if (currentPage) {
+      console.log("paging");
+      temp = temp.slice(0, 10);
     }
+    console.log(temp);
 
     updateTransactions(temp);
-
   }, [searchText, filterBy, currentPage]);
 
   return (
