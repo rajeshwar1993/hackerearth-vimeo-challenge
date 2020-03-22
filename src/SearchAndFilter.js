@@ -4,7 +4,7 @@ const SearchAndFilter = ({
   searchText,
   textChange,
   filterBy,
-  filterChnage
+  filterChange
 }) => {
   return (
     <div className={"filters"}>
@@ -21,7 +21,13 @@ const SearchAndFilter = ({
           />
         </div>
         <div className={"col-4"}>
-          <select className={"form-control"}>
+          <select
+            className={"form-control"}
+            value={filterBy}
+            onChange={e => {
+              filterChange(e.nativeEvent.target.value);
+            }}
+          >
             <option default value="">
               No Filter
             </option>
