@@ -8,7 +8,7 @@ import "./styles.css";
 
 export default function App() {
   const [transactions, updateTransactions] = useState([]);
-
+  const [transactionsToShow, updateTransactionsToShow] = useState([]);
   const [searchText, updateSearchText] = useState("");
   const [filterBy, updateFilterBy] = useState("");
   const [currentPage, updateCurrentPage] = useState(1);
@@ -59,6 +59,7 @@ export default function App() {
       });
       console.log("filtering", temp);
     }
+    updateTransactions(temp);
 
     if (temp.length > 0 && currentPage) {
       console.log("paging", (currentPage - 1) * 10 + 10);
@@ -67,7 +68,7 @@ export default function App() {
     }
     console.log(temp);
 
-    updateTransactions(temp);
+    updateTransactionsToShow(temp);
   }, [searchText, filterBy, currentPage]);
 
   const textChange = val => {
@@ -95,7 +96,12 @@ export default function App() {
         filterBy={filterBy}
         filterChange={filterChange}
       />
-      <Results trans={transactions} />
+      <Results
+        trans={transactionsToShow}
+        currentPage={currentPage}
+        pageChange={pageChange}
+        pages={transactions.length / 10}
+      />
     </div>
   );
 }

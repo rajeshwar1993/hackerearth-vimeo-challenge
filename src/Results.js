@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Results = ({ trans }) => {
+const Results = ({ trans, currentPage, pageChange, pages }) => {
+  const [pagi, updatePagi] = useState();
+
+  useEffect(() => {
+    let p = [];
+    for (let i = 0; i < pages; i++) {
+      p.push(
+        <li class="page-item">
+          <a class="page-link" href="#">
+            {i + 1}
+          </a>
+        </li>
+      );
+    }
+
+    updatePagi(p);
+  }, [pages]);
+
   return (
     <div className={"results"}>
       <table className={"results-table table table-striped"}>
@@ -34,23 +51,7 @@ const Results = ({ trans }) => {
         </tbody>
       </table>
       <nav>
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-        </ul>
+        <ul class="pagination">{pagi}</ul>
       </nav>
     </div>
   );
