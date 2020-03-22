@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import clsx from "clsx";
 
 const Results = ({ trans, currentPage, pageChange, pages }) => {
   const [pagi, updatePagi] = useState();
@@ -7,8 +8,12 @@ const Results = ({ trans, currentPage, pageChange, pages }) => {
     let p = [];
     for (let i = 0; i < pages; i++) {
       p.push(
-        <li class="page-item">
-          <a class="page-link" href="#">
+        <li class={clsx("page-item", currentPage == i + 1 ? "active" : "")}>
+          <a
+            href="#"
+            class={clsx("page-link")}
+            onClick={pageChange.bind(null, i + 1)}
+          >
             {i + 1}
           </a>
         </li>
@@ -16,7 +21,7 @@ const Results = ({ trans, currentPage, pageChange, pages }) => {
     }
 
     updatePagi(p);
-  }, [pages]);
+  }, [currentPage, pages]);
 
   return (
     <div className={"results"}>

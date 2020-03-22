@@ -82,6 +82,7 @@ export default function App() {
   };
 
   const pageChange = val => {
+    console.log("page", val);
     updateCurrentPage(val);
   };
 
