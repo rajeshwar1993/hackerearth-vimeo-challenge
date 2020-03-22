@@ -7,9 +7,7 @@ import Results from "./Results";
 import "./styles.css";
 
 export default function App() {
-  const [transactions, updateTransactions] = useState(
-    transactionsData.splice(0, 15)
-  );
+  const [transactions, updateTransactions] = useState([]);
 
   const [searchText, updateSearchText] = useState("");
   const [filterBy, updateFilterBy] = useState("");
@@ -33,43 +31,64 @@ export default function App() {
     //     console.log(err);
     //   });
 
-    let temp = transactionsData;
+    let temp = transactionsData.slice();
 
-    console.log(temp);
+    console.log("initial", temp);
 
     if (searchText) {
-      console.log("searching");
-      temp = temp.map(tr => {
-        if (tr["Account No"].toString().includes(searchText)) {
-          return tr;
+      let acc = [];
+      temp.forEach(tr => {
+        if (tr["Transaction Details"].toString().includes(searchText)) {
+          acc.push(tr);
         }
       });
+      temp = acc;
+      console.log("searching", temp);
     }
 
-    if (filterBy) {
-      console.log("filtering");
+    if (temp.length > 0 && filterBy) {
       temp = temp.sort(function(a, b) {
         if (a < b) return -1;
         else if (a > b) return 1;
         else return 0;
       });
+      console.log("filtering", temp);
     }
 
-    if (currentPage) {
-      console.log("paging");
-      temp = temp.slice(0, 10);
+    if (temp.length > 0 && currentPage) {
+      console.log("paging", (currentPage - 1) * 10 + 10);
+      temp = temp.slice((currentPage - 1) * 10, (currentPage - 1) * 10 + 10);
+      console.log("paginged", temp);
     }
     console.log(temp);
 
     updateTransactions(temp);
   }, [searchText, filterBy, currentPage]);
 
+  const textChange = val => {
+    console.log(val);
+    updateSearchText(val);
+  };
+
+  const filterChange = val => {
+    updateFilterBy(val);
+  };
+
+  const pageChange = val => {
+    updateCurrentPage(val);
+  };
+
   return (
     <div className="App">
       <div className={"header"}>
         <h1>Account Details</h1>
       </div>
-      <SearchAndFilter />
+      <SearchAndFilter
+        searchText={searchText}
+        textChange={textChange}
+        filterBy={filterBy}
+        filterChange={filterChange}
+      />
       <Results trans={transactions} />
     </div>
   );

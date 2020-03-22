@@ -19,11 +19,7 @@ const Results = ({ trans }) => {
         <tbody>
           {trans.map((tr, i) => {
             return (
-              <tr
-                key={`${tr["Account No"]} - ${tr["Date"]} - ${
-                  tr["Deposit AMT"]
-                } - ${tr["Balance AMT"]}`}
-              >
+              <tr key={i}>
                 <td>{i + 1}</td>
                 <td>{tr["Account No"]}</td>
                 <td>{tr["Date"]}</td>
