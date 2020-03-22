@@ -7,7 +7,7 @@ import Results from "./Results";
 import "./styles.css";
 
 export default function App() {
-  const [transactions, updateTransactions] = useState(transactionsData);
+  const [transactions, updateTransactions] = useState(transactionsData.splice(0,5));
 
   const [searchText, updateSearchText] = useState("");
   const [filterBy, updateFilterBy] = useState("");
@@ -31,7 +31,7 @@ export default function App() {
     //     console.log(err);
     //   });
     console.log(transactions);
-  }, []);
+  }, [searchText, filterBy, currentPage]);
 
   return (
     <div className="App">
@@ -39,7 +39,7 @@ export default function App() {
         <h1>Account Details</h1>
       </div>
       <SearchAndFilter />
-      <Results />
+      <Results trans={transactions} />
     </div>
   );
 }
